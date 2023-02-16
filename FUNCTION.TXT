@@ -1,0 +1,85 @@
+SQL> SELECT ENAME FROM EMP WHERE LENGTH(JOB)=5;
+
+ENAME                                                                                                                                                                                                                                                                                                       
+----------                                                                                                                                                                                                                                                                                                  
+SMITH                                                                                                                                                                                                                                                                                                       
+ADAMS                                                                                                                                                                                                                                                                                                       
+JAMES                                                                                                                                                                                                                                                                                                       
+MILLER                                                                                                                                                                                                                                                                                                      
+
+SQL> SELECT * FROM EMP WHERE LENGTH(ENAME)=6;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                                                                                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                                                                                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                                                                                                                       
+
+SQL>  SELECT  LENGTH('JSPIDERS')- LENGTH(REPLACE('JSPIDERS','S')) FROM DUAL;
+
+LENGTH('JSPIDERS')-LENGTH(REPLACE('JSPIDERS','S'))                                                                                                                                                                                                                                                          
+--------------------------------------------------                                                                                                                                                                                                                                                          
+                                                 2                                                                                                                                                                                                                                                          
+
+
+SQL> SELECT * FROM EMP WHERE INSTR(JOB,'MAN')>0;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                                                                                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                                                                                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                                                                                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                                                                                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                                                                                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                                                                                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                                                                                                                       
+
+7 rows selected.
+
+
+
+
+SQL> SELECT * FROM EMP WHERE LENGTH (ENAME) - LENGTH(REPLACE(ENAME,'L'))=1;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                                                                                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                                                                                                                       
+
+
+SQL> SELECT LENGTH('HELLO')- LENGTH(REPLACE('HELLO','L')) FROM DUAL;
+
+LENGTH('HELLO')-LENGTH(REPLACE('HELLO','L'))                                                                                                                                                                                                                                                                
+--------------------------------------------                                                                                                                                                                                                                                                                
+                                           2                                                                                                                                                                                                                                                                
+
+
+SQL> SELECT DNAME FROM DEPT WHERE DNAME LIKE'%O%';
+
+DNAME                                                                                                                                                                                                                                                                                                       
+--------------                                                                                                                                                                                                                                                                                              
+ACCOUNTING                                                                                                                                                                                                                                                                                                  
+OPERATIONS                                                                                                                                                                                                                                                                                                  
+
+SQL> SELECT LOWER(SUBSTR(ENAME,1,3)) FROM EMP;
+
+LOW                                                                                                                                                                                                                                                                                                         
+---                                                                                                                                                                                                                                                                                                         
+smi                                                                                                                                                                                                                                                                                                         
+all                                                                                                                                                                                                                                                                                                         
+war                                                                                                                                                                                                                                                                                                         
+jon                                                                                                                                                                                                                                                                                                         
+mar                                                                                                                                                                                                                                                                                                         
+bla                                                                                                                                                                                                                                                                                                         
+cla                                                                                                                                                                                                                                                                                                         
+sco                                                                                                                                                                                                                                                                                                         
+kin                                                                                                                                                                                                                                                                                                         
+tur                                                                                                                                                                                                                                                                                                         
+ada                                                                                                                                                                                                                                                                                                         
+jam                                                                                                                                                                                                                                                                                                         
+for                                                                                                                                                                                                                                                                                                         
+mil                                                                                                                                                                                                                                                                                                         
+
+14 rows selected.
+
+SQL> SPOOL EXIT

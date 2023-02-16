@@ -1,0 +1,201 @@
+SQL>  SELECT ENAME FROM EMP WHERE DEPTNO IN (SELECT DEPTNO FROM DEPT WHERE DNAME LIKE '%S');
+
+ENAME                                                                                                                                                                                                                                                                                                       
+----------                                                                                                                                                                                                                                                                                                  
+ALLEN                                                                                                                                                                                                                                                                                                       
+WARD                                                                                                                                                                                                                                                                                                        
+MARTIN                                                                                                                                                                                                                                                                                                      
+BLAKE                                                                                                                                                                                                                                                                                                       
+TURNER                                                                                                                                                                                                                                                                                                      
+JAMES                                                                                                                                                                                                                                                                                                       
+
+6 rows selected.
+
+SQL> SELECT  * FROM EMP WHERE SAL>(SELECT SAL FROM EMP WHERE ENAME='MILLER');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                                                                                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                                                                                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                                                                                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                                                                                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                                                                                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                                                                                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                                                                                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                                                                                                                       
+
+8 rows selected.
+
+SQL> SELECT ENAME FROM EMP WHERE JOB NOT IN (SELECT JOB FROM EMP WHERE ENAME ='ALLEN') AND SAL> (SELECT SAL FROM EMP WHERE ENAME ='MARTIN');
+
+ENAME                                                                                                                                                                                                                                                                                                       
+----------                                                                                                                                                                                                                                                                                                  
+JONES                                                                                                                                                                                                                                                                                                       
+BLAKE                                                                                                                                                                                                                                                                                                       
+CLARK                                                                                                                                                                                                                                                                                                       
+SCOTT                                                                                                                                                                                                                                                                                                       
+KING                                                                                                                                                                                                                                                                                                        
+FORD                                                                                                                                                                                                                                                                                                        
+MILLER                                                                                                                                                                                                                                                                                                      
+
+7 rows selected.
+
+ 
+SQL> SELECT * FROM EMP WHERE SAL> ANY (SELECT SAL FROM EMP WHERE JOB ='MANAGER');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                                                                                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                                                                                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                                                                                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                                                                                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                                                                                                                       
+
+SQL> SELECT * FROM EMP WHERE HIREDATE < (SELECT MAX(HIREDATE) FROM EMP);
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                                                                                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                                                                                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                                                                                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                                                                                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                                                                                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                                                                                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                                                                                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                                                                                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                                                                                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                                                                                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                                                                                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                                                                                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                                                                                                                       
+
+13 rows selected.
+
+SQL> SELECT * FROM EMP WHERE EMPNO IN (SELECT MGR FROM EMP WHERE EMPNO IN (SELECT MGR FROM EMP WHERE ENAME='SMITH'));
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                                                                                                                       
+
+SQL> SELECT * FROM EMP WHERE COMM IS NOT NULL AND HIREDATE<(SELECT MAX (HIREDATE) FROM EMP) AND DEPTNO IN (SELECT DEPTNO FROM DEPT WHERE DNAME ='SALES');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                                                                                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                                                                                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                                                                                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                                                                                                                       
+
+SQL> SELECT DNAME FROM DEPT WHERE DEPTNO IN (SELECT DEPTNO FROM EMP WHERE EMPNO IN( SELECT MGR FROM EMP WHERE EMPNO IN(SELECT MGR FROM EMP WHERE ENAME ='WARD')));
+
+DNAME                                                                                                                                                                                                                                                                                                       
+--------------                                                                                                                                                                                                                                                                                              
+ACCOUNTING                                                                                                                                                                                                                                                                                                  
+
+SQL> SELECT DNAME FROM DEPT WHERE DEPTNO IN(SELECT DEPTNO FROM DEPT WHERE DNAME LIKE '%O_');
+
+no rows selected
+
+SQL> SELECT * FROM DEPT;
+
+    DEPTNO DNAME          LOC                                                                                                                                                                                                                                                                               
+---------- -------------- -------------                                                                                                                                                                                                                                                                     
+        10 ACCOUNTING     NEW YORK                                                                                                                                                                                                                                                                          
+        20 RESEARCH       DALLAS                                                                                                                                                                                                                                                                            
+        30 SALES          CHICAGO                                                                                                                                                                                                                                                                           
+        40 OPERATIONS     BOSTON                                                                                                                                                                                                                                                                            
+
+
+SQL>  SELECT ENAME FROM EMP WHERE DEPTNO IN (SELECT DEPTNO FROM DEPT  WHERE DNAME  LIKE '%O_');
+
+no rows selected
+
+SQL> SELECT DNAME FROM DEPT WHERE DEPTNO IN(SELECT DEPTNO FROM EMP WHERE COMM IS NOT NULL);
+
+DNAME                                                                                                                                                                                                                                                                                                       
+--------------                                                                                                                                                                                                                                                                                              
+SALES                                                                                                                                                                                                                                                                                                       
+
+SQL> SELECT * FROM (SELECT ENAME ,LENGTH(ENAME) FROM EMP ORDER BY LENGTH(ENAME) DESC) WHERE ROWNUM=1;
+
+ENAME      LENGTH(ENAME)                                                                                                                                                                                                                                                                                    
+---------- -------------                                                                                                                                                                                                                                                                                    
+MARTIN                 6                                                                                                                                                                                                                                                                                    
+
+SQL> SELECT * FROM EMP WHERE HIREDATE> (SELECT  HIREDATE FROM EMP WHERE ENAME ='BLAKE');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                                                                                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                                                                                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                                                                                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                                                                                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                                                                                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                                                                                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                                                                                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                                                                                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                                                                                                                       
+
+9 rows selected.
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                       
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                                                                                                                       
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                                                                                                                       
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                                                                                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                                                                                                                       
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                                                                                                                       
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                                                                                                                       
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                                                                                                                       
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                                                                                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                                                                                                                       
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                                                                                                                       
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                                                                                                                       
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                                                                                                                       
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                                                                                                                       
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                                                                                                                       
+
+14 rows selected.
+
+SQL> SELECT * FROM EMP WHERE EMPNO IN (SELECT MGR FROM EMP WHERE SAL>2000);
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                       
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                       
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                                                                                                                       
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                                                                                                                       
+
+SQL> SELECT DNAME FROM DEPT WHERE DEPTNO IN(SELECT DEPTNO FROM EMP WHERE MGR IN (SELECT EMPNO FROM EMP WHERE SAL >2000));
+
+DNAME                                                                                                                                                                                                                                                                                                       
+--------------                                                                                                                                                                                                                                                                                              
+SALES                                                                                                                                                                                                                                                                                                       
+RESEARCH                                                                                                                                                                                                                                                                                                    
+ACCOUNTING                                                                                                                                                                                                                                                                                                  
+
+SQL> SELECT ENAME FROM EMP WHERE DEPTNO IN (SELECT DEPTNO FROM EMP WHERE INSTR(ENAME ,'E',1,2)>0);
+
+no rows selected
+
+SQL> SELECT * FROM DEPT;
+
+    DEPTNO DNAME          LOC                                                                                                                                                                                                                                                                               
+---------- -------------- -------------                                                                                                                                                                                                                                                                     
+        10 ACCOUNTING     NEW YORK                                                                                                                                                                                                                                                                          
+        20 RESEARCH       DALLAS                                                                                                                                                                                                                                                                            
+        30 SALES          CHICAGO                                                                                                                                                                                                                                                                           
+        40 OPERATIONS     BOSTON                                                                                                                                                                                                                                                                            
+
+
+SQL>  SELECT ENAME FROM EMP WHERE DEPTNO IN (SELECT DEPTNO FROM DEPT WHERE DNAME LIKE'%E%E%');
+
+ENAME                                                                                                                                                                                                                                                                                                       
+----------                                                                                                                                                                                                                                                                                                  
+SMITH                                                                                                                                                                                                                                                                                                       
+JONES                                                                                                                                                                                                                                                                                                       
+SCOTT                                                                                                                                                                                                                                                                                                       
+ADAMS                                                                                                                                                                                                                                                                                                       
+FORD                                                                                                                                                                                                                                                                                                        
+
+SQL> SPOOL EXIT
